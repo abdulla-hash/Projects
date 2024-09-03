@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Strength Checker</title>
+  <style>
+    
+    .container {
+      text-align: center;
+      margin: 30px;
+    }
+
+    
+    #password {
+      width: 250px;
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;  
+
+    #password:focus {
+      outline: none;
+      border-color: #17a2b8;
+      box-shadow: 0 0 5px 2px #17a2b8;
+    }
+
+    
+    #strength-meter {
+      width: 200px;
+      height: 20px;
+      border-radius: 10px;
+      margin-top: 10px;
+      background-color: #ddd;
+      transition: background-color 0.5s ease-in-out; 
+    }
+
+    
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3498db; 
+      color: white;
+      transition: all 0.3s ease-in-out; 
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    button:active {
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <label for="password">Enter Your Password:</label>
+    <input type="password" id="password" placeholder="Enter your password">
+    <div id="strength-meter"></div>
+    <button onclick="checkPassword()">Check Strength</button>
+  </div>
+  <script>
+    function checkPassword() {
+      const password = document.getElementById("password").value;
+            const strengthMeter = document.getElementById("strength-meter");
+
+            
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
+            const hasSpecialChar = /[!@#$%^&*()_+[\]{}|;:,.<>?]/.test(password);
+            const   
+ isLongEnough = password.length >= 8;
+
+            
+            let strength = 0;
+            if (hasUpperCase) strength++;
+            if (hasLowerCase) strength++;
+            if (hasNumber) strength++;
+            if (hasSpecialChar) strength++;
+            if (isLongEnough) strength++;
+
+            
+            let message; 
+            switch (strength) {
+                case 1:
+                case 2:
+                    strengthMeter.style.backgroundColor = "red";
+                    message = "Weak password. Please use a combination of uppercase and lowercase letters, numbers, and special characters.";
+                    break;
+              
+                case 4:
+                    strengthMeter.style.backgroundColor = "orange";
+                    message = "Moderate password. Consider adding more complexity.";
+                    break;
+                default:
+                    strengthMeter.style.backgroundColor = "green";
+                    message = "Strong password!";
+            
+    }
+      alert(message);
+    
+    }
+  </script>
+</body>
+</html>
